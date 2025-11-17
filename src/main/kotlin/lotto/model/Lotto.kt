@@ -5,6 +5,10 @@ class Lotto(private val numbers: List<Int>) {
         require(numbers.size == 6) { "[ERROR] 로또 번호는 6개여야 합니다." }
     }
 
+    fun countMatchedNumbers(other: Lotto): Int {
+        return numbers.count(other::contains)
+    }
+
     fun contains(number: Int) : Boolean {
         return numbers.contains(number)
     }
