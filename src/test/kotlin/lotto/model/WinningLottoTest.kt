@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import org.junit.jupiter.params.provider.ValueSource
 
 class WinningLottoTest {
 
@@ -32,6 +33,23 @@ class WinningLottoTest {
         assertThatCode { WinningLotto(lotto, bonusNumber) }
             .isExactlyInstanceOf(IllegalArgumentException::class.java)
             .hasMessage(ErrorCode.DUPLICATED_BONUS_NUMBER.message())
+    }
+
+    @DisplayName("당첨 로또 실패 - 보너스 번호가 범위를 벗어남")
+    @ParameterizedTest
+    @ValueSource(
+        ints = [
+            -1, 0, 46
+        ]
+    )
+    fun invalidBonusNumber(bonusNumber: Int) {
+        // given
+        val lotto = Lotto(listOf(1, 2, 3, 4, 5, 6))
+
+        // when & then
+        assertThatCode { WinningLotto(lotto, bonusNumber) }
+            .isExactlyInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage(ErrorCode.INVALID_BONUS_NUMBER.message())
     }
 
     @DisplayName("당첨 로또 비교 테스트")
