@@ -1,13 +1,40 @@
 package lotto.model
 
+import lotto.error.ErrorCode
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatCode
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 class WinningLottoTest {
 
-    @DisplayName("우승 로또 비교 테스트")
+    @DisplayName("당첨 로또 생성 성공 테스트")
+    @Test
+    fun winningLottoTest() {
+        // given
+        val lotto = Lotto(listOf(1, 2, 3, 4, 5, 6))
+        val bonusNumber = 45
+
+        // when & then
+        assertThatCode { WinningLotto(lotto, bonusNumber) }.doesNotThrowAnyException()
+    }
+
+    @DisplayName("당첨 로또 실패 - 보너스 번호가 당첨 번호와 중복")
+    @Test
+    fun duplicatedBonusNumberTest() {
+        // given
+        val lotto = Lotto(listOf(1, 2, 3, 4, 5, 6))
+        val bonusNumber = 6
+
+        // when & then
+        assertThatCode { WinningLotto(lotto, bonusNumber) }
+            .isExactlyInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage(ErrorCode.DUPLICATED_BONUS_NUMBER.message())
+    }
+
+    @DisplayName("당첨 로또 비교 테스트")
     @ParameterizedTest
     @CsvSource(
         value = [
@@ -41,5 +68,4 @@ class WinningLottoTest {
         assertThat(result.countMatchedNumbers).isEqualTo(expectedMatchedCount)
         assertThat(result.matchedBonus).isEqualTo(expectedMatchedBonus)
     }
-
 }
