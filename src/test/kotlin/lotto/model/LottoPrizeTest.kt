@@ -34,7 +34,7 @@ class LottoPrizeTest {
     @DisplayName("로또 당첨 순위 계산 테스트")
     @ParameterizedTest
     @MethodSource("matchedCountAndBonusAndPrize")
-    fun prizeDetermineTest(matchedCount:Int, bonusMatch: Boolean, expected: LottoPrize) {
+    fun prizeDetermineTest(matchedCount: Int, bonusMatch: Boolean, expected: LottoPrize) {
         // given
         val lottoResult = LottoResult(matchedCount, bonusMatch)
 

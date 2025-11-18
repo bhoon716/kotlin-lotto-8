@@ -7,7 +7,7 @@ import lotto.model.PurchaseLottos
 
 class OutputView {
 
-    fun printEnterPurchaseAmount() {
+    fun setupPurchaseAmount() {
         println("구입금액을 입력해주세요.")
     }
 
@@ -22,7 +22,7 @@ class OutputView {
     }
 
     private fun printLottoNumbers(lottoNumbers: List<LottoNumbers>) {
-        lottoNumbers.forEach{lotto -> println(lotto.numbers)}
+        lottoNumbers.forEach { lotto -> println(lotto.numbers) }
     }
 
     fun printEnterWinningNumbers() {
