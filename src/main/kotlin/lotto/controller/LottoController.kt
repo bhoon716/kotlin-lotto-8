@@ -27,5 +27,6 @@ class LottoController(private val inputView: InputView, private val outputView: 
         val winningLotto = WinningLotto(Lotto(winningNumbers), bonusNumber)
 
         val totalLottoResult = purchaseLottos.judgeAll(winningLotto)
+        outputView.printTotalResult(totalLottoResult)
     }
 }

@@ -1,6 +1,8 @@
 package lotto.view
 
 import lotto.dto.LottoNumbers
+import lotto.dto.TotalLottoResult
+import lotto.model.LottoPrize
 import lotto.model.PurchaseLottos
 
 class OutputView {
@@ -13,7 +15,6 @@ class OutputView {
         val lottoNumbers = purchaseLottos.infos()
         printPurchaseCount(lottoNumbers.size)
         printLottoNumbers(lottoNumbers)
-
     }
 
     private fun printPurchaseCount(count: Int) {
@@ -30,5 +31,32 @@ class OutputView {
 
     fun printEnterBonusNumber() {
         println("보너스 번호를 입력해 주세요.")
+    }
+
+    fun printTotalResult(totalLottoResult: TotalLottoResult) {
+        println("당첨 통계")
+        println("---")
+        totalLottoResult.lottoResultsByPrize
+            .filterNot { (prize, _) -> prize == LottoPrize.NONE }
+            .forEach { (prize, count) -> printResult(prize, count) }
+        printReturnRate(totalLottoResult)
+    }
+
+    private fun printResult(prize: LottoPrize, count: Int) {
+        val stringBuilder = StringBuilder()
+        stringBuilder.append(prize.requiredMatchCount)
+            .append("개 일치")
+        if (prize.bonusRequired) {
+            stringBuilder.append(", 보너스 볼 일치")
+        }
+        stringBuilder.append("(${prize.reward})")
+            .append(" - ")
+            .append(count)
+            .append("개")
+        println(stringBuilder)
+    }
+
+    private fun printReturnRate(totalLottoResult: TotalLottoResult) {
+        println("총 수익률은 ${totalLottoResult.returnRate()}%입니다.")
     }
 }

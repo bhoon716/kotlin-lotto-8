@@ -4,9 +4,9 @@ import lotto.model.LottoPrize
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-data class TotalLottoResult(val lottoResultsByPrize: Map<LottoPrize, Int>) {
+data class TotalLottoResult(val lottoResultsByPrize: MutableMap<LottoPrize, Int>) {
 
-    fun returnRate(): Double {
+    fun returnRate(): BigDecimal {
         val totalReward = lottoResultsByPrize.entries
             .sumOf { (prize, count) -> prize.reward * count }
 
@@ -14,11 +14,21 @@ data class TotalLottoResult(val lottoResultsByPrize: Map<LottoPrize, Int>) {
             .sumOf { it * 1_000.0 }
 
         if (totalAmount == 0.0) {
-            return 0.0
+            return BigDecimal.ZERO
         }
 
         val returnRatePercent = totalReward / totalAmount * 100
 
-        return BigDecimal(returnRatePercent).setScale(1, RoundingMode.HALF_UP).toDouble()
+        return BigDecimal(returnRatePercent).setScale(1, RoundingMode.HALF_UP)
+    }
+
+    companion object {
+
+        fun initialize(): MutableMap<LottoPrize, Int> {
+            return LottoPrize.entries
+                .reversed()
+                .associateWith { 0 }
+                .toMutableMap()
+        }
     }
 }
