@@ -16,4 +16,8 @@ class InputView {
             .map { number -> IntParser.parse(number) }
             .toList()
     }
+
+    fun readBonusNumber(): Int {
+        return IntParser.parse(Console.readLine())
+    }
 }
