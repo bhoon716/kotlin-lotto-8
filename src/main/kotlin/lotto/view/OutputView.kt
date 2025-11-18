@@ -23,4 +23,8 @@ class OutputView {
     private fun printLottoNumbers(lottoNumbers: List<LottoNumbers>) {
         lottoNumbers.forEach{lotto -> println(lotto.numbers)}
     }
+
+    fun printEnterWinningNumbers() {
+        println("당첨 번호를 입력해 주세요.")
+    }
 }
