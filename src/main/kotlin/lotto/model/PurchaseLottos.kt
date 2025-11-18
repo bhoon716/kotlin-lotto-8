@@ -1,5 +1,6 @@
 package lotto.model
 
+import lotto.dto.LottoNumbers
 import lotto.dto.TotalLottoResult
 
 class PurchaseLottos(private val lottos: List<Lotto>) {
@@ -12,5 +13,11 @@ class PurchaseLottos(private val lottos: List<Lotto>) {
                 .groupingBy { it }
                 .eachCount()
         )
+    }
+
+    fun infos(): List<LottoNumbers> {
+        return lottos
+            .map { it.numbers() }
+            .toList()
     }
 }
