@@ -17,6 +17,7 @@ class LottoController(private val inputView: InputView, private val outputView: 
         outputView.printPurchaseLottos(purchaseLottos)
 
         outputView.printEnterWinningNumbers()
-        inputView.readWinningNumbers()
+        val winningNumbers = inputView.readWinningNumbers()
+        
     }
 }
