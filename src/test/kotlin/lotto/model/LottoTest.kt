@@ -42,6 +42,18 @@ class LottoTest {
             .hasMessage(ErrorCode.DUPLICATED_LOTTO_NUMBER.message())
     }
 
+    @DisplayName("로또 범위를 벗어난 숫자 존재하면 예외 발생")
+    @Test
+    fun outOfRangeNumberTest() {
+        // given
+        val numbers = listOf(1,2,3,4,5,46)
+
+        // when & then
+        assertThatThrownBy { Lotto(numbers) }
+            .isExactlyInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage(ErrorCode.OUT_OF_RANGE_NUMBER.message())
+    }
+
     @DisplayName("로또에 특정 번호 포함되어있는지 확인 테스트")
     @Test
     fun lottoContainsNumberTest() {
