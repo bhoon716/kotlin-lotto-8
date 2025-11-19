@@ -8,6 +8,7 @@ class Lotto(private val numbers: List<Int>) {
     init {
         validateNumberCount(numbers)
         validateUniqueNumbers(numbers)
+        validateNumberInRange(numbers)
     }
 
     private fun validateNumberCount(numbers: List<Int>) {
@@ -16,6 +17,12 @@ class Lotto(private val numbers: List<Int>) {
 
     private fun validateUniqueNumbers(numbers: List<Int>) {
         require(numbers.distinct().size == numbers.size) { ErrorCode.DUPLICATED_LOTTO_NUMBER.message() }
+    }
+
+    private fun validateNumberInRange(numbers: List<Int>) {
+        require(
+            numbers.stream()
+                .allMatch { MINIMUM_NUMBER <= it && it <= MAXIMUM_NUMBER }) { ErrorCode.OUT_OF_RANGE_NUMBER.message() }
     }
 
     fun countMatchedNumbers(other: Lotto): Int {
