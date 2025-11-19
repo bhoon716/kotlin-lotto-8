@@ -109,11 +109,14 @@ BUILD SUCCESSFUL in 0s
     - 함수(또는 메서드)가 한 가지 일만 잘 하도록 구현한다.
 - else, switch/case를 사용하지 않는다.
 - 구현한 기능에 대한 단위 테스트를 작성한다. (UI 로직 제외)
-- 제공된 `Lotto` 클래스를 사용하여 구현해야 한다
-- Enum을 적용한다
-- `Lotto`에 `numbers` 이외의 필드(인스턴스 변수)를 추가할 수 없다
-- `numbers` 의 접근 제어자인 `private` 은 변경할 수 없다
-- `Lotto` 의 패키지를 변경할 수 있다
+- 제공된 `Lotto` 클래스를 사용하여 구현해야 한다.
+- Enum을 적용한다.
+- `Lotto`에 `numbers` 이외의 필드(인스턴스 변수)를 추가할 수 없다.
+- `numbers` 의 접근 제어자인 `private` 은 변경할 수 없다.
+- `Lotto` 의 패키지를 변경할 수 있다.
+- 사용자가 잘못된 값을 입력할 경우 `IllegalArgumentException`을 발생시키고, "[ERROR]"로 시작하는 에러 메시지를 출력 후 그 부분부터 입력을 다시 받는다.
+  - `Exception이` 아닌 `IllegalArgumentException`, `IllegalStateException` 등과 같은 명확한 유형을 처리한다.
+
 
 ## 실행 결과 예시
 ```text
