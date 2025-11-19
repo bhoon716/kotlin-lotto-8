@@ -14,6 +14,6 @@ enum class ErrorCode(private val message: String) {
     ;
 
     fun message(): String {
-        return "[Error] $message"
+        return "[ERROR] $message"
     }
 }
