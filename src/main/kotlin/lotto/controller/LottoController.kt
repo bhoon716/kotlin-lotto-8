@@ -7,6 +7,7 @@ import lotto.model.WinningLotto
 import lotto.model.strategy.LottoRandomIssueStrategy
 import lotto.view.InputView
 import lotto.view.OutputView
+import java.util.function.Supplier
 
 class LottoController(private val inputView: InputView, private val outputView: OutputView) {
 
@@ -21,7 +22,7 @@ class LottoController(private val inputView: InputView, private val outputView: 
     private fun purchaseLottos(): PurchaseLottos {
         val lottoMachine = LottoMachine(LottoRandomIssueStrategy())
 
-        val purchaseAmount = readPurchaseAmount()
+        val purchaseAmount = handleInvalidInput { readPurchaseAmount() }
 
         val purchaseLottos = lottoMachine.purchase(purchaseAmount)
 
@@ -36,9 +37,9 @@ class LottoController(private val inputView: InputView, private val outputView: 
     }
 
     private fun setupWinningLotto(): WinningLotto {
-        val winningNumbers = setupWinningNumbers()
+        val winningNumbers = handleInvalidInput { setupWinningNumbers() }
 
-        val bonusNumber = setupBonusNumber()
+        val bonusNumber = handleInvalidInput { setupBonusNumber() }
 
         return WinningLotto(Lotto(winningNumbers), bonusNumber)
     }
@@ -58,5 +59,15 @@ class LottoController(private val inputView: InputView, private val outputView: 
     private fun judgeLottos(purchaseLottos: PurchaseLottos, winningLotto: WinningLotto) {
         val totalLottoResult = purchaseLottos.judgeAll(winningLotto)
         outputView.printTotalResult(totalLottoResult)
+    }
+
+    private fun <T> handleInvalidInput(supplier: Supplier<T>): T {
+        while (true) {
+            try {
+                return supplier.get()
+            } catch (exception: IllegalArgumentException) {
+                outputView.printErrorMessage(exception.message)
+            }
+        }
     }
 }

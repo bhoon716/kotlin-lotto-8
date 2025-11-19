@@ -59,4 +59,8 @@ class OutputView {
     private fun printReturnRate(totalLottoResult: TotalLottoResult) {
         println("총 수익률은 ${totalLottoResult.returnRate()}%입니다.")
     }
+
+    fun printErrorMessage(message: String?) {
+        println(message)
+    }
 }
