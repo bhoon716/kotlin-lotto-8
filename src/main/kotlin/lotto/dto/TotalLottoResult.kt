@@ -1,5 +1,6 @@
 package lotto.dto
 
+import lotto.model.Lotto
 import lotto.model.LottoPrize
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -11,7 +12,8 @@ data class TotalLottoResult(val lottoResultsByPrize: MutableMap<LottoPrize, Int>
             .sumOf { (prize, count) -> prize.reward * count }
 
         val totalAmount = lottoResultsByPrize.values
-            .sumOf { it * 1_000.0 }
+            .sumOf { it * Lotto.PRICE }
+            .toDouble()
 
         if (totalAmount == 0.0) {
             return BigDecimal.ZERO

@@ -30,7 +30,11 @@ class Lotto(private val numbers: List<Int>) {
         return LottoNumbers(numbers.sorted().toList())
     }
 
-    companion object {
+    companion object RULE {
+        const val PRICE = 1_000
+        const val MAXIMUM_PRICE = 100_000
         const val NUMBER_COUNT = 6
+        const val MINIMUM_NUMBER = 1
+        const val MAXIMUM_NUMBER = 45
     }
 }

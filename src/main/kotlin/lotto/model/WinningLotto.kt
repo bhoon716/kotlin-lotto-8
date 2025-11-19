@@ -11,7 +11,7 @@ class WinningLotto(private val winningLotto: Lotto, private val bonusNumber: Int
     }
 
     private fun validate(bonusNumber: Int) {
-        if (bonusNumber < 1 || bonusNumber > 45) {
+        if (bonusNumber < Lotto.MINIMUM_NUMBER || bonusNumber > Lotto.MAXIMUM_NUMBER) {
             throw IllegalArgumentException(ErrorCode.INVALID_BONUS_NUMBER.message())
         }
     }

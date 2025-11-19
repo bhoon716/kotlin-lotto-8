@@ -12,12 +12,16 @@ class InputView {
     fun readWinningNumbers(): List<Int> {
         val numbers = Console.readLine()
         return numbers
-            .split(",")
+            .split(WINNING_NUMBER_DELIMITER)
             .map { number -> IntParser.parse(number) }
             .toList()
     }
 
     fun readBonusNumber(): Int {
         return IntParser.parse(Console.readLine())
+    }
+
+    private companion object {
+        const val WINNING_NUMBER_DELIMITER = ","
     }
 }

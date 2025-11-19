@@ -8,7 +8,7 @@ class LottoMachine(private val issueStrategy: LottoIssueStrategy) {
 
     fun purchase(amount: Int): PurchaseLottos {
         validate(amount)
-        val count = amount / 1_000
+        val count = amount / Lotto.MAXIMUM_NUMBER
         val lottos = IntStream.range(0, count)
             .mapToObj { i -> issueStrategy.issue() }
             .map { numbers -> Lotto(numbers) }
@@ -17,10 +17,10 @@ class LottoMachine(private val issueStrategy: LottoIssueStrategy) {
     }
 
     private fun validate(amount: Int) {
-        if(amount < 1_000 || amount > 100_000) {
+        if(amount < Lotto.PRICE || amount > Lotto.MAXIMUM_PRICE) {
             throw IllegalArgumentException(ErrorCode.INVALID_PURCHASE_AMOUNT.message())
         }
-        if(amount % 1_000 != 0) {
+        if(amount % Lotto.PRICE != 0) {
             throw IllegalArgumentException(ErrorCode.INVALID_PURCHASE_AMOUNT.message())
         }
     }
