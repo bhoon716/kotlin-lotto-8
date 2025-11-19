@@ -4,6 +4,7 @@ import lotto.model.LottoPrize
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import java.math.BigDecimal
 
 class TotalLottoResultTest {
 
@@ -24,6 +25,6 @@ class TotalLottoResultTest {
         val returnRate = totalLottoResult.returnRate()
 
         // then
-        assertThat(returnRate).isEqualTo(71.4)
+        assertThat(returnRate).isEqualTo(BigDecimal("71.4"))
     }
 }
