@@ -1,26 +1,45 @@
 package lotto.model
 
+import lotto.error.ErrorCode
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import org.junit.jupiter.params.provider.ValueSource
 
 class LottoTest {
-    @Test
-    fun `로또 번호의 개수가 6개가 넘어가면 예외가 발생한다`() {
-        assertThrows<IllegalArgumentException> {
-            Lotto(listOf(1, 2, 3, 4, 5, 6, 7))
-        }
+
+    @DisplayName("로또 번호의 개수가 6자리가 아니면 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = [
+        "1,2,3,4,5",        // 5 자리
+        "1,2,3,4,5,6,7"     // 7 자리
+    ])
+    fun invalidLottoNumberCountTest(numbers: String) {
+        // given
+        val numbers = numbers.split(",")
+            .map { it.toInt() }
+            .toList()
+
+        // when & then
+        assertThatThrownBy { Lotto(numbers) }
+            .isExactlyInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage(ErrorCode.INVALID_NUMBER_COUNT.message())
     }
 
+    @DisplayName("로또 번호에 중복된 숫자가 있으면 예외가 발생한다")
     @Test
-    fun `로또 번호에 중복된 숫자가 있으면 예외가 발생한다`() {
-        assertThrows<IllegalArgumentException> {
-            Lotto(listOf(1, 2, 3, 4, 5, 5))
-        }
+    fun duplicatedNumberLottoTest() {
+        // given
+        val numbers = listOf(1, 1, 2, 3, 4, 5)
+
+        // when & then
+        assertThatThrownBy { Lotto(numbers) }
+            .isExactlyInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage(ErrorCode.DUPLICATED_LOTTO_NUMBER.message())
     }
 
     @DisplayName("로또에 특정 번호 포함되어있는지 확인 테스트")
