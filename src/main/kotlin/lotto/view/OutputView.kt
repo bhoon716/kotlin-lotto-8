@@ -44,12 +44,13 @@ class OutputView {
 
     private fun printResult(prize: LottoPrize, count: Int) {
         val stringBuilder = StringBuilder()
-        stringBuilder.append(prize.requiredMatchCount)
+        stringBuilder
+            .append(prize.requiredMatchCount)
             .append("개 일치")
         if (prize.bonusRequired) {
             stringBuilder.append(", 보너스 볼 일치")
         }
-        stringBuilder.append("(${prize.reward})")
+        stringBuilder.append(" (${String.format("%,d", prize.reward)}원)")
             .append(" - ")
             .append(count)
             .append("개")

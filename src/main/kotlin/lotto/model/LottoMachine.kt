@@ -8,7 +8,7 @@ class LottoMachine(private val issueStrategy: LottoIssueStrategy) {
 
     fun purchase(amount: Int): PurchaseLottos {
         validate(amount)
-        val count = amount / Lotto.MAXIMUM_NUMBER
+        val count = amount / Lotto.PRICE
         val lottos = IntStream.range(0, count)
             .mapToObj { i -> issueStrategy.issue() }
             .map { numbers -> Lotto(numbers) }
