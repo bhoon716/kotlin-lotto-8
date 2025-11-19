@@ -17,11 +17,7 @@ class LottoMachine(private val issueStrategy: LottoIssueStrategy) {
     }
 
     private fun validate(amount: Int) {
-        if(amount < Lotto.PRICE || amount > Lotto.MAXIMUM_PRICE) {
-            throw IllegalArgumentException(ErrorCode.INVALID_PURCHASE_AMOUNT.message())
-        }
-        if(amount % Lotto.PRICE != 0) {
-            throw IllegalArgumentException(ErrorCode.INVALID_PURCHASE_AMOUNT.message())
-        }
+        require(Lotto.PRICE <= amount && amount <= Lotto.MAXIMUM_PRICE) { ErrorCode.INVALID_PURCHASE_AMOUNT.message() }
+        require(amount % Lotto.PRICE == 0) { ErrorCode.INVALID_PURCHASE_AMOUNT.message() }
     }
 }

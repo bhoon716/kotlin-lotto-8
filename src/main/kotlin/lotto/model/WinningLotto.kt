@@ -11,15 +11,11 @@ class WinningLotto(private val winningLotto: Lotto, private val bonusNumber: Int
     }
 
     private fun validate(bonusNumber: Int) {
-        if (bonusNumber < Lotto.MINIMUM_NUMBER || bonusNumber > Lotto.MAXIMUM_NUMBER) {
-            throw IllegalArgumentException(ErrorCode.INVALID_BONUS_NUMBER.message())
-        }
+        require(Lotto.MINIMUM_NUMBER <= bonusNumber && bonusNumber <= Lotto.MAXIMUM_NUMBER) { ErrorCode.INVALID_BONUS_NUMBER.message() }
     }
 
     private fun validate(winningLotto: Lotto, bonusNumber: Int) {
-        if (winningLotto.contains(bonusNumber)) {
-            throw IllegalArgumentException(ErrorCode.DUPLICATED_BONUS_NUMBER.message())
-        }
+        require(!winningLotto.contains(bonusNumber)) { ErrorCode.DUPLICATED_BONUS_NUMBER.message() }
     }
 
     fun judge(lotto: Lotto): LottoResult {
